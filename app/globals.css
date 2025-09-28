@@ -24,3 +24,10 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+html, body {
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+* {
+  box-sizing: border-box; /* Ensures padding doesn't add extra width */
+}
