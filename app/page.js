@@ -316,7 +316,7 @@ export default function Home() {
 
         <motion.footer className="text-center mt-12 py-6 border-t border-gray-700">
           <p className="text-gray-400 text-xs sm:text-sm">
-            Technical Assessment • Front-End Developer • Md Maidul Islam •{" "}
+            Technical Assessment from Sofof Tech for • Front-End Developer position • Md Maidul Islam •{" "}
             {new Date().getFullYear()}
           </p>
         </motion.footer>
