@@ -162,6 +162,30 @@ export default function Home() {
     });
   };
 
+  // Function to generate avatar initials
+  const getAvatarInitials = (name) => {
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
+  // Function to generate random color based on name
+  const getAvatarColor = (name) => {
+    const colors = [
+      "from-cyan-500 to-blue-500",
+      "from-purple-500 to-pink-500", 
+      "from-green-500 to-teal-500",
+      "from-orange-500 to-red-500",
+      "from-indigo-500 to-purple-500",
+      "from-blue-500 to-cyan-500",
+    ];
+    const index = name.length % colors.length;
+    return colors[index];
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 py-8 px-4 sm:px-6 lg:px-8">
       {/* Background */}
@@ -196,7 +220,7 @@ export default function Home() {
           </motion.p>
         </motion.header>
 
-        {/* Form & Feedback BELOW */}
+        {/* Form & Feedback  */}
         <div className="flex flex-col gap-10 xl:gap-16 overflow-x-hidden">
           {/* Form */}
           <motion.div
@@ -264,7 +288,7 @@ export default function Home() {
             </motion.form>
           </motion.div>
 
-          {/* Feedback BELOW form */}
+          {/* Feedback  form */}
           <motion.div
             className="bg-gray-900/60 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-700/50 p-6 sm:p-10"
             variants={listVariants}
@@ -292,20 +316,59 @@ export default function Home() {
                       exit="exit"
                       whileHover={{ scale: 1.02 }}
                       transition={{ delay: index * 0.1 }}
-                      className="bg-gray-800/80 border border-gray-700 rounded-xl sm:rounded-2xl p-5 sm:p-6 shadow-lg"
+                      className="bg-gray-800/80 border border-gray-700 rounded-xl sm:rounded-2xl p-5 sm:p-6 shadow-lg cursor-pointer group"
                       onClick={() => copyToClipboard(item.feedback)}
                     >
-                      <div className="flex justify-between items-start mb-3">
-                        <h3 className="font-bold text-white">{item.name}</h3>
-                        <span className="text-xs text-cyan-400">
-                          {new Date(item.date).toLocaleDateString("en-BD", {
-                            year: "numeric",
-                            month: "short",
-                            day: "numeric",
-                          })}
-                        </span>
+                      <div className="flex items-start gap-4 mb-3">
+                        {/* Avatar Added Here */}
+                        <motion.div 
+                          className={`w-12 h-12 bg-gradient-to-r ${getAvatarColor(item.name)} rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-lg flex-shrink-0`}
+                          whileHover={{ scale: 1.1, rotate: 5 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          {getAvatarInitials(item.name)}
+                        </motion.div>
+                        
+                        <div className="flex-1 min-w-0">
+                          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
+                            <div>
+                              <h3 className="font-bold text-white text-base sm:text-lg">
+                                {item.name}
+                              </h3>
+                              <p className="text-gray-400 text-xs sm:text-sm">
+                                {item.email}
+                              </p>
+                            </div>
+                            <span className="text-xs text-cyan-400 bg-cyan-500/10 px-2 py-1 rounded-full border border-cyan-500/20 self-start sm:self-center whitespace-nowrap">
+                              {new Date(item.date).toLocaleDateString("en-BD", {
+                                year: "numeric",
+                                month: "short",
+                                day: "numeric",
+                              })}
+                            </span>
+                          </div>
+                          <p className="text-gray-200 text-sm sm:text-base leading-relaxed">
+                            {item.feedback}
+                          </p>
+                        </div>
                       </div>
-                      <p className="text-gray-200">{item.feedback}</p>
+                      
+                      {/* Copy Icon */}
+                      <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                        <svg
+                          className="w-4 h-4 text-gray-500"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                          />
+                        </svg>
+                      </div>
                     </motion.div>
                   ))}
                 </AnimatePresence>
