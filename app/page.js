@@ -257,7 +257,7 @@ export default function Home() {
                 type="submit"
                 disabled={isLoading}
                 variants={itemVariants}
-                className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-4 sm:py-5 px-6 sm:px-8 rounded-xl sm:rounded-2xl font-bold text-base sm:text-lg disabled:opacity-50 shadow-lg"
+                className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-4 sm:py-5 px-6 sm:px-8 rounded-xl sm:rounded-2xl font-bold text-base sm:text-lg disabled:opacity-50 shadow-lg cursor-pointer"
               >
                 {isLoading ? "Processing..." : "Submit Your Feedback"}
               </motion.button>
